@@ -41,14 +41,14 @@
     {% if data.wallets %}
     <section class="card wallets-card">
         <h2>Crypto Wallets</h2>
-        {% if data.wallets.ETH %}<div class="wallet-row"><span class="chain-label">ETH</span><span class="addr">{{
-                data.wallets.ETH }}</span><button class="copy-btn" data-addr="{{ data.wallets.ETH }}">Copy</button>
+        {% if data.eth %}<div class="wallet-row"><span class="chain-label">ETH</span><span
+                class="addr">{{data.eth}}</span><button class="copy-btn" data-addr="{{ data.eth }}">Copy</button>
         </div>{% endif %}
-        {% if data.wallets.BTC %}<div class="wallet-row"><span class="chain-label">BTC</span><span class="addr">{{
-                data.wallets.BTC }}</span><button class="copy-btn" data-addr="{{ data.wallets.BTC }}">Copy</button>
+        {% if data.btc %}<div class="wallet-row"><span class="chain-label">BTC</span><span
+                class="addr">{{data.btc}}</span><button class="copy-btn" data-addr="{{ data.btc }}">Copy</button>
         </div>{% endif %}
-        {% if data.wallets.SOL %}<div class="wallet-row"><span class="chain-label">SOL</span><span class="addr">{{
-                data.wallets.SOL }}</span><button class="copy-btn" data-addr="{{ data.wallets.SOL }}">Copy</button>
+        {% if data.sol %}<div class="wallet-row"><span class="chain-label">SOL</span><span
+                class="addr">{{data.sol}}</span><button class="copy-btn" data-addr="{{ data.sol }}">Copy</button>
         </div>{% endif %}
     </section>
     {% endif %}
