@@ -27,7 +27,6 @@ multidict==6.7.1
 packaging==26.0
 parsimonious==0.10.0
 propcache==0.4.1
-psycopg2-binary==2.9.11
 pycryptodome==3.23.0
 pydantic==2.12.5
 pydantic_core==2.41.5
@@ -43,4 +42,5 @@ typing_extensions==4.15.0
 urllib3==2.6.3
 web3==7.14.1
 websockets==15.0.1
+whitenoise==6.9.0
 yarl==1.23.0
