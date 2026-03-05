@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}ENS Social — Search{% endblock %}
+
+{% block content %}
+<main class="home-container">
+    <h1>ENS Social</h1>
+    <p class="subtitle">Explore Ethereum identities</p>
+    <form action="" method="get" class="search-form" id="search-form">
+        <input type="text" name="q" id="ens-input" placeholder="vitalik.eth" autocomplete="off" spellcheck="false">
+        <button type="submit">Search</button>
+    </form>
+    {% if error %}
+    <p class="error-msg">{{ error }}</p>
+    {% endif %}
+</main>
+
+<script>
+    document.getElementById("search-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const val = document.getElementById("ens-input").value.trim().toLowerCase();
+        if (!val.endsWith(".eth")) {
+            alert("Please enter a valid .eth name.");
+            return;
+        }
+        window.location.href = "/profile/" + encodeURIComponent(val) + "/";
+    });
+</script>
+{% endblock %}

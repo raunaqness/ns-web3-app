@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{{ ens_name }} — ENS Social{% endblock %}
+
+{% block content %}
+<main class="profile-container">
+    <a href="/" class="back-link">← Back to search</a>
+    <div class="profile-header">
+        {% if data.avatar %}
+        <img src="{{ data.avatar }}" alt="{{ ens_name }} avatar" class="avatar">
+        {% else %}
+        <div class="avatar avatar-placeholder">{{ ens_name|slice:":1"|upper }}</div>
+        {% endif %}
+        <div class="profile-headline">
+            <h1>{{ ens_name }}</h1>
+            {% if data.owner %}
+            <p class="owner-address" title="{{ data.owner }}">{{ data.owner|slice:":6" }}…{{ data.owner|slice:"-4:" }}
+            </p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if data.description %}
+    <p class="description">{{ data.description }}</p>
+    {% endif %}
+
+    {% if data.url %}
+    <p class="website"><a href="{{ data.url }}" target="_blank" rel="noopener">{{ data.url }}</a></p>
+    {% endif %}
+
+    {% if data.socials %}
+    <section class="card socials-card">
+        <h2>Social Links</h2>
+        {% if data.socials.twitter %}<p>𝕏 / Twitter: <a href="https://twitter.com/{{ data.socials.twitter }}"
+                target="_blank" rel="noopener">@{{ data.socials.twitter }}</a></p>{% endif %}
+        {% if data.socials.github %}<p>GitHub: <a href="https://github.com/{{ data.socials.github }}" target="_blank"
+                rel="noopener">{{ data.socials.github }}</a></p>{% endif %}
+        {% if data.socials.discord %}<p>Discord: {{ data.socials.discord }}</p>{% endif %}
+    </section>
+    {% endif %}
+
+    {% if data.wallets %}
+    <section class="card wallets-card">
+        <h2>Crypto Wallets</h2>
+        {% if data.wallets.ETH %}<div class="wallet-row"><span class="chain-label">ETH</span><span class="addr">{{
+                data.wallets.ETH }}</span><button class="copy-btn" data-addr="{{ data.wallets.ETH }}">Copy</button>
+        </div>{% endif %}
+        {% if data.wallets.BTC %}<div class="wallet-row"><span class="chain-label">BTC</span><span class="addr">{{
+                data.wallets.BTC }}</span><button class="copy-btn" data-addr="{{ data.wallets.BTC }}">Copy</button>
+        </div>{% endif %}
+        {% if data.wallets.SOL %}<div class="wallet-row"><span class="chain-label">SOL</span><span class="addr">{{
+                data.wallets.SOL }}</span><button class="copy-btn" data-addr="{{ data.wallets.SOL }}">Copy</button>
+        </div>{% endif %}
+    </section>
+    {% endif %}
+
+    {% if data.metadata %}
+    <section class="card metadata-card">
+        <h2>Metadata</h2>
+        {% if data.metadata.resolver %}<p><strong>Resolver:</strong> {{ data.metadata.resolver }}</p>{% endif %}
+        {% if data.metadata.expiry %}<p><strong>Expires:</strong> {{ data.metadata.expiry }}</p>{% endif %}
+        <p><strong>Wrapped:</strong> {{ data.metadata.wrapped|yesno:"Yes,No" }}</p>
+    </section>
+    {% endif %}
+
+    {% if error %}
+    <div class="error-card">{{ error }}</div>
+    {% endif %}
+</main>
+
+<script>
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            navigator.clipboard.writeText(btn.dataset.addr).then(() => {
+                btn.textContent = "Copied!";
+                setTimeout(() => btn.textContent = "Copy", 1500);
+            });
+        });
+    });
+</script>
+{% endblock %}
