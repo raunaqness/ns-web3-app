@@ -1,0 +1,42 @@
+{
+    "ens": "vitalik.eth",
+    "node": "0xee6c4522...",
+    "owner": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+    "resolver": "0x231b0Ee14048e9dccd1d247744d114a4eb5e8e63",
+    "ttl": 0,
+    "registration": {
+        "registrant": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+        "controller": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+        "registration_date": "2017-05-04T00:00:00Z",
+        "expiry_date": "2027-05-04T00:00:00Z"
+    },
+    "addresses": {
+        "ETH": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+        "BTC": "bc1q...",
+        "LTC": "ltc1..."
+    },
+    "text_records": {
+        "name": "Vitalik Buterin",
+        "description": "Ethereum co-founder",
+        "url": "https://vitalik.ca",
+        "avatar": "ipfs://Qm...",
+        "com.twitter": "VitalikButerin",
+        "com.github": "vbuterin",
+        "org.telegram": "vitalik",
+        "email": "vitalik@example.com"
+    },
+    "contenthash": "ipfs://QmX...",
+    "reverse_record": {
+        "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+        "name": "vitalik.eth"
+    },
+    "wrapper": {
+        "wrapped": false,
+        "fuses": null,
+        "expiry": null
+    },
+    "subdomains": [
+        "blog.vitalik.eth",
+        "docs.vitalik.eth"
+    ]
+}

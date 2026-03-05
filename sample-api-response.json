@@ -1,0 +1,22 @@
+{
+    "ens": "vitalik.eth",
+    "owner": "0x...",
+    "avatar": "...",
+    "description": "...",
+    "website": "...",
+    "socials": {
+        "twitter": "...",
+        "github": "...",
+        "discord": "..."
+    },
+    "wallets": {
+        "ETH": "...",
+        "BTC": "...",
+        "SOL": "..."
+    },
+    "metadata": {
+        "resolver": "...",
+        "expiry": "...",
+        "wrapped": false
+    }
+}
