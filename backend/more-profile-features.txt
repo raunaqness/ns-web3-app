@@ -1,0 +1,34 @@
+eth balance 
+curl "https://api.etherscan.io/v2/api?chainid=1&module=account&action=balance&address=0x0916C04994849c676ab2667Ce5bbDF7CcC94310a&tag=latest&apikey=SKFTJG7Q44927X9I3322CZIS7C7BT6ITKZ"
+
+response:
+{
+  "status": "1",
+  "message": "OK",
+  "result": "1234567890000000000"
+}
+
+--------------------------
+
+
+transaction history
+
+curl "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlist&address=0x0916C04994849c676ab2667Ce5bbDF7CcC94310a&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=SKFTJG7Q44927X9I3322CZIS7C7BT6ITKZ"
+
+{
+  "status": "1",
+  "message": "OK",
+  "result": "1234567890000000000"
+}
+
+
+
+--------------------------
+
+internal transactions
+
+curl "https://api.etherscan.io/v2/api?chainid=1&module=account&action=txlistinternal&address=0x0916C04994849c676ab2667Ce5bbDF7CcC94310a&page=1&offset=10&sort=desc&apikey=SKFTJG7Q44927X9I3322CZIS7C7BT6ITKZ"
+
+response
+{"status":"1","message":"OK","result":[{"blockNumber":"20085066","timeStamp":"1718307923","hash":"0x9f553b1330ef97456d87c804500fa55307814805b8e33fb59902f13199bf513c","from":"0x60e7343205c9c88788a22c40030d35f9370d302d","to":"0x0916c04994849c676ab2667ce5bbdf7ccc94310a","value":"204672829100000000","contractAddress":"","input":"","type":"call","gas":"2284149","gasUsed":"0","traceId":"0_1_1_1","isError":"0","errCode":""},{"blockNumber":"19937944","timeStamp":"1716531983","hash":"0x53ecae4e4a05813f729c1e71345211f8639b003ac79f4bc7c94b7a8caed7077c","from":"0x253553366da8546fc250f225fe3d25d0c782303b","to":"0x0916c04994849c676ab2667ce5bbdf7ccc94310a","value":"107634354044384","contractAddress":"","input":"","type":"call","gas":"2300","gasUsed":"0","traceId":"0_1","isError":"0","errCode":""}]}%     
+

@@ -62,6 +62,47 @@
     </section>
     {% endif %}
 
+    {% if data.etherscan %}
+    <section class="card etherscan-card">
+        <h2>Etherscan Data</h2>
+        {% if data.etherscan.balance != None %}
+        <p><strong>ETH Balance:</strong> {{ data.etherscan.balance }} ETH</p>
+        {% endif %}
+
+        {% if data.etherscan.transactions %}
+        <h3 style="margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1.1rem;">Recent Transactions</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            {% for tx in data.etherscan.transactions %}
+            <li style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="font-size: 0.9em; color: var(--text-muted, #888);">Hash: <a
+                        href="https://etherscan.io/tx/{{ tx.hash }}" target="_blank" rel="noopener"
+                        style="color: inherit; text-decoration: underline;">{{ tx.hash|slice:":14" }}…</a></div>
+                <div style="font-size: 0.9em; margin-top: 0.2rem;">From: <span
+                        title="{{ tx.from }}">{{tx.from|slice:":6" }}…{{ tx.from|slice:"-4:" }}</span> &rarr; To: <span
+                        title="{{ tx.to }}">{{tx.to|slice:":6" }}…{{ tx.to|slice:"-4:" }}</span></div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if data.etherscan.internal_transactions %}
+        <h3 style="margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1.1rem;">Recent Internal Transactions</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            {% for tx in data.etherscan.internal_transactions %}
+            <li style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="font-size: 0.9em; color: var(--text-muted, #888);">Hash: <a
+                        href="https://etherscan.io/tx/{{ tx.hash }}" target="_blank" rel="noopener"
+                        style="color: inherit; text-decoration: underline;">{{ tx.hash|slice:":14" }}…</a></div>
+                <div style="font-size: 0.9em; margin-top: 0.2rem;">From: <span
+                        title="{{ tx.from }}">{{tx.from|slice:":6" }}…{{ tx.from|slice:"-4:" }}</span> &rarr; To: <span
+                        title="{{ tx.to }}">{{tx.to|slice:":6" }}…{{ tx.to|slice:"-4:" }}</span></div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </section>
+    {% endif %}
+
     {% if error %}
     <div class="error-card">{{ error }}</div>
     {% endif %}

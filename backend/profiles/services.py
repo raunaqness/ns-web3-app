@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import datetime
 import logging
+import requests
 
 from django.conf import settings
 from web3 import Web3
@@ -161,6 +162,33 @@ def _bytes_to_sol_address(raw: bytes) -> str | None:
 # Main service function
 # ---------------------------------------------------------------------------
 
+def _fetch_etherscan_data(action: str, address: str, extra_params=None):
+    """Helper to fetch data from Etherscan API v2."""
+    api_key = settings.ETHERSCAN_API_KEY
+    if not api_key:
+        return None
+    
+    url = "https://api.etherscan.io/v2/api"
+    params = {
+        "chainid": "1",
+        "module": "account",
+        "action": action,
+        "address": address,
+        "apikey": api_key,
+    }
+    if extra_params:
+        params.update(extra_params)
+        
+    try:
+        resp = requests.get(url, params=params, timeout=5)
+        resp.raise_for_status()
+        data = resp.json()
+        if data.get("status") == "1":
+            return data.get("result")
+    except Exception as e:
+        logger.debug("Etherscan API error for %s: %s", action, e)
+    return None
+
 def fetch_ens_profile(ens_name: str) -> dict:
     """
     Resolve an ENS name and fetch all its associated data.
@@ -177,6 +205,7 @@ def fetch_ens_profile(ens_name: str) -> dict:
         "socials": {},
         "wallets": {},
         "metadata": {},
+        "etherscan": None,
         "error": None,
     }
 
@@ -298,6 +327,41 @@ def fetch_ens_profile(ens_name: str) -> dict:
         except Exception as e:
             logger.debug("isWrapped failed: %s", e)
             result["metadata"]["wrapped"] = False
+
+        # --- Etherscan API Logic ---
+        if "ETH" in result.get("wallets", {}):
+            eth_address = result["wallets"]["ETH"]
+            try:
+                # Balance
+                bal_wei_str = _fetch_etherscan_data("balance", eth_address, {"tag": "latest"})
+                balance_eth = None
+                if bal_wei_str is not None:
+                    try:
+                        balance_eth = round(int(bal_wei_str) / 10**18, 4)
+                    except Exception:
+                        pass
+                
+                # Transactions
+                tx_list = _fetch_etherscan_data(
+                    "txlist", 
+                    eth_address, 
+                    {"startblock": 0, "endblock": 99999999, "page": 1, "offset": 10, "sort": "desc"}
+                )
+                
+                # Internal Transactions
+                internal_tx_list = _fetch_etherscan_data(
+                    "txlistinternal", 
+                    eth_address, 
+                    {"page": 1, "offset": 10, "sort": "desc"}
+                )
+                
+                result["etherscan"] = {
+                    "balance": balance_eth,
+                    "transactions": tx_list if isinstance(tx_list, list) else [],
+                    "internal_transactions": internal_tx_list if isinstance(internal_tx_list, list) else []
+                }
+            except Exception as e:
+                logger.debug("Etherscan API fetch failed: %s", e)
 
     except Exception as e:
         logger.exception("Unexpected error fetching ENS profile for %s", ens_name)

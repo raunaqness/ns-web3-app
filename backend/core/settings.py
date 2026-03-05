@@ -124,3 +124,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ENS / Web3 configuration (loaded from .env)
 # ---------------------------------------------------------------------------
 WEB3_PROVIDER_URL = env("WEB3_PROVIDER_URL", default="")
+ETHERSCAN_API_KEY = env("ETHERSCAN_API_KEY", default="")
