@@ -38,6 +38,13 @@
     </section>
     {% endif %}
 
+    {% if data.etherscan.balance != None %}
+    <section class="card balance-card">
+        <h2 style="margin-bottom: 0.5rem;">ETH Balance</h2>
+        <p style="font-size: 1.5rem; margin: 0; font-weight: bold; color: #4ade80;">{{ data.etherscan.balance }} ETH</p>
+    </section>
+    {% endif %}
+
     {% if data.wallets %}
     <section class="card wallets-card">
         <h2>Crypto Wallets</h2>
@@ -65,9 +72,6 @@
     {% if data.etherscan %}
     <section class="card etherscan-card">
         <h2>Etherscan Data</h2>
-        {% if data.etherscan.balance != None %}
-        <p><strong>ETH Balance:</strong> {{ data.etherscan.balance }} ETH</p>
-        {% endif %}
 
         {% if data.etherscan.transactions %}
         <h3 style="margin-top: 1rem; margin-bottom: 0.5rem; font-size: 1.1rem;">Recent Transactions</h3>
